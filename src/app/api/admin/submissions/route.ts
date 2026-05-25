@@ -116,6 +116,15 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: true, action: "rejected" });
   }
 
+  // 「報告（report）」は公開対象ではないので、approve しても公開しない（安全策）。
+  // 内容を確認したら reject で片付ける運用にする。
+  if (sub.kind === "report") {
+    return NextResponse.json(
+      { ok: false, error: "これは『情報がちがう報告』です。公開対象ではありません。確認したら reject で片付けてください。" },
+      { status: 400 },
+    );
+  }
+
   // approve → 公開テーブルへ反映（大会・教室でテーブルを分ける）
   let publishedTable: string;
   let publishedId: string;

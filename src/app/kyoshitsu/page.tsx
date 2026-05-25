@@ -75,6 +75,32 @@ export default async function KyoshitsuPage({
         </div>
       )}
 
+      {/* 近くの教室をもっとさがす（外部の一覧・検索） */}
+      <div className="mt-10 rounded-[var(--radius-card)] border-2 border-sky/30 bg-sky-soft/40 p-6">
+        <h2 className="font-display text-lg font-black text-ink">🔎 近くの教室をもっとさがす</h2>
+        <p className="mt-2 text-sm leading-relaxed text-ink-soft">
+          このサイトの一覧にない地域でも、下のページから全国の将棋教室・道場をさがせます。
+        </p>
+        <div className="mt-4 flex flex-wrap gap-3">
+          <a
+            href="https://www.shogi.or.jp/school/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-full border-2 border-sky bg-white px-5 py-2.5 text-sm font-black text-sky-dark transition hover:-translate-y-0.5 hover:bg-sky-soft"
+          >
+            🔗 日本将棋連盟 将棋教室一覧
+          </a>
+          <a
+            href="https://schools.i-tsu-tsu.co.jp/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-full border-2 border-sky bg-white px-5 py-2.5 text-sm font-black text-sky-dark transition hover:-translate-y-0.5 hover:bg-sky-soft"
+          >
+            🔗 いつつ 将棋教室検索
+          </a>
+        </div>
+      </div>
+
       <div className="mt-10">
         <SubmitCTA />
       </div>

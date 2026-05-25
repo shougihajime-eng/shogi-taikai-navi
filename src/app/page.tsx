@@ -100,6 +100,18 @@ export default async function HomePage() {
               👧 女子の大会・教室
             </Link>
           </div>
+
+          {/* はじめての子・おうちの方へ の入口 */}
+          <div className="mx-auto mt-5 max-w-2xl">
+            <Link
+              href="/hajimete"
+              className="flex items-center justify-center gap-2 rounded-full border-2 border-soon/40 bg-soon-soft/70 px-5 py-2.5 text-center text-sm font-black text-soon transition hover:-translate-y-0.5 hover:border-soon"
+            >
+              <span aria-hidden>🔰</span>
+              はじめて大会に出る子・おうちの方へ（不安にお答えします）
+              <span aria-hidden>→</span>
+            </Link>
+          </div>
         </div>
       </section>
 

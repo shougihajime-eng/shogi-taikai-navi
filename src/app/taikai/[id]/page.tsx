@@ -8,6 +8,8 @@ import { AgeBadges } from "@/components/AgeBadge";
 import { StatusBadge } from "@/components/StatusBadge";
 import { GirlsBadge } from "@/components/GirlsBadge";
 import { Notice } from "@/components/Notice";
+import { ShareButtons } from "@/components/ShareButtons";
+import { ReportLink } from "@/components/ReportLink";
 
 export async function generateMetadata({
   params,
@@ -140,9 +142,12 @@ export default async function TournamentDetail({
           </a>
         )}
 
-        <p className="mt-4 text-center text-xs text-ink-soft">
+        <ShareButtons title={t.title} />
+
+        <p className="mt-6 text-center text-xs text-ink-soft">
           情報のもと：{t.sourceName}
         </p>
+        <ReportLink targetType="tournament" targetId={t.id} targetTitle={t.title} />
       </div>
 
       <div className="mt-6">

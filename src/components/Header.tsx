@@ -47,6 +47,12 @@ export function Header() {
             👧 女子
           </Link>
           <Link
+            href="/hajimete"
+            className="rounded-full px-3 py-2 text-base font-bold text-ink transition hover:bg-soon-soft hover:text-soon"
+          >
+            🔰 はじめての方へ
+          </Link>
+          <Link
             href="/about"
             className="rounded-full px-3 py-2 text-base font-bold text-ink transition hover:bg-line"
           >

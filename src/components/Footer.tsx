@@ -9,6 +9,7 @@ export function Footer() {
           <Link href="/taikai" className="font-bold hover:text-ink">大会をさがす</Link>
           <Link href="/kyoshitsu" className="font-bold hover:text-ink">教室をさがす</Link>
           <Link href="/joshi" className="font-bold hover:text-ink">女子の大会・教室</Link>
+          <Link href="/hajimete" className="font-bold hover:text-ink">はじめての方へ</Link>
           <Link href="/toroku" className="font-bold hover:text-ink">大会・教室を登録する</Link>
           <Link href="/about" className="font-bold hover:text-ink">このサイトについて</Link>
         </div>

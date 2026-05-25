@@ -4,6 +4,8 @@ import type { Metadata } from "next";
 import { getClassById } from "@/lib/data";
 import { AgeBadges } from "@/components/AgeBadge";
 import { Notice } from "@/components/Notice";
+import { ShareButtons } from "@/components/ShareButtons";
+import { ReportLink } from "@/components/ReportLink";
 
 export async function generateMetadata({
   params,
@@ -83,9 +85,12 @@ export default async function ClassDetail({
           </a>
         )}
 
-        <p className="mt-4 text-center text-xs text-ink-soft">
+        <ShareButtons title={c.name} />
+
+        <p className="mt-6 text-center text-xs text-ink-soft">
           情報のもと：{c.sourceName}
         </p>
+        <ReportLink targetType="class" targetId={c.id} targetTitle={c.name} />
       </div>
 
       <div className="mt-6">
