@@ -1,26 +1,92 @@
 @import "tailwindcss";
 
+/* =========================================================
+   将棋大会ナビ — デザインの土台（色・文字・形）
+   子どもにも見やすい：大きな文字・はっきりした色・まるい形
+   ========================================================= */
+
+@theme {
+  /* フォント（見出し＝まるくてやさしい / 本文＝読みやすい） */
+  --font-display: var(--font-zen-maru), "Hiragino Maru Gothic ProN", system-ui, sans-serif;
+  --font-sans: var(--font-noto-sans-jp), "Hiragino Sans", "Meiryo", system-ui, sans-serif;
+
+  /* 背景・文字 */
+  --color-paper: #fdf6ec;     /* やわらかい和紙色の背景 */
+  --color-card: #ffffff;
+  --color-ink: #2b2620;       /* 文字（こい茶色） */
+  --color-ink-soft: #6f655a;  /* 補足の文字 */
+  --color-line: #ecdfcb;      /* 区切り線 */
+
+  /* メインカラー */
+  --color-brand: #ef7a1a;      /* 大会＝オレンジ（元気） */
+  --color-brand-dark: #d96a0d;
+  --color-brand-soft: #ffe9d2;
+  --color-sky: #1d9bc9;        /* 教室＝水色 */
+  --color-sky-dark: #1685ae;
+  --color-sky-soft: #d7f0fa;
+  --color-koma: #d8a14a;       /* 将棋の駒の色 */
+
+  /* 状態の色 */
+  --color-soon: #2fa84f;       /* もうすぐ・受付中＝緑 */
+  --color-soon-soft: #dcf3e1;
+  --color-done: #9a9088;       /* 終了＝グレー */
+
+  /* 学年バッジの色 */
+  --color-elem: #2e9e57;       /* 小学生＝緑 */
+  --color-elem-soft: #dcf3e3;
+  --color-jhs: #2f73d8;        /* 中学生＝青 */
+  --color-jhs-soft: #dde9fb;
+  --color-hs: #8a4fd6;         /* 高校生＝紫 */
+  --color-hs-soft: #ece0fb;
+
+  /* 角丸・影 */
+  --radius-card: 1.25rem;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: var(--color-paper);
+  --foreground: var(--color-ink);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-paper);
+  /* やさしい市松（チェック）模様をほんのり */
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(216, 161, 74, 0.10) 1px, transparent 0);
+  background-size: 22px 22px;
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* 見出しはまるいフォントで */
+h1, h2, h3, .font-display {
+  font-family: var(--font-display);
+  letter-spacing: 0.01em;
+}
+
+/* リンクや押せるものは指でも押しやすく */
+a, button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* キーボード操作の人にも分かりやすい枠 */
+:focus-visible {
+  outline: 3px solid var(--color-sky);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* 動きが苦手な人向けに、アニメを控える設定を尊重 */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
 }

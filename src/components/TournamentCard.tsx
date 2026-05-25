@@ -1,0 +1,56 @@
+import Link from "next/link";
+import type { Tournament } from "@/lib/types";
+import { ORGANIZER_LABEL } from "@/lib/types";
+import { formatJPDate } from "@/lib/date";
+import { AgeBadges } from "./AgeBadge";
+import { StatusBadge } from "./StatusBadge";
+import { clsx } from "@/lib/clsx";
+
+export function TournamentCard({ t }: { t: Tournament }) {
+  return (
+    <Link
+      href={`/taikai/${t.id}`}
+      className={clsx(
+        "group relative flex flex-col gap-3 rounded-[var(--radius-card)] border-2 border-line bg-card p-5",
+        "shadow-sm transition hover:-translate-y-1 hover:border-brand hover:shadow-lg",
+        t.status === "finished" && "opacity-70",
+      )}
+    >
+      {/* 上の段：状態と主催 */}
+      <div className="flex items-center justify-between gap-2">
+        <StatusBadge eventDate={t.eventDate} endDate={t.endDate} status={t.status} />
+        <span className="rounded-full bg-brand-soft px-2.5 py-0.5 text-xs font-bold text-brand-dark">
+          {ORGANIZER_LABEL[t.organizerType]}
+        </span>
+      </div>
+
+      {/* タイトル */}
+      <h3 className="text-lg font-bold leading-snug text-ink group-hover:text-brand-dark">
+        {t.title}
+      </h3>
+
+      {/* 日付・場所 */}
+      <dl className="space-y-1 text-sm text-ink-soft">
+        <div className="flex items-start gap-2">
+          <span aria-hidden>📅</span>
+          <span className="font-semibold text-ink">{formatJPDate(t.eventDate)}</span>
+        </div>
+        <div className="flex items-start gap-2">
+          <span aria-hidden>📍</span>
+          <span>
+            {t.prefecture}
+            {t.city ? ` ${t.city}` : ""}
+            {t.venue ? `・${t.venue}` : ""}
+          </span>
+        </div>
+      </dl>
+
+      {/* 学年バッジ */}
+      <AgeBadges groups={t.ageGroups} size="sm" />
+
+      <span className="mt-1 text-sm font-bold text-brand-dark opacity-0 transition group-hover:opacity-100">
+        くわしく見る →
+      </span>
+    </Link>
+  );
+}
