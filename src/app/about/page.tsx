@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { KomaIcon } from "@/components/KomaIcon";
+import { Mascot } from "@/components/Mascot";
 
 export const metadata: Metadata = {
   title: "このサイトについて",
@@ -11,7 +11,7 @@ export default function AboutPage() {
   return (
     <div className="mx-auto max-w-3xl px-4 py-10">
       <div className="flex items-center gap-3">
-        <KomaIcon label="将" className="h-12 w-12" />
+        <Mascot label="将" bob className="h-14 w-14" />
         <h1 className="font-display text-3xl font-black text-ink">このサイトについて</h1>
       </div>
 

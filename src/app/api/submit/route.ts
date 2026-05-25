@@ -64,6 +64,8 @@ export async function POST(request: Request) {
       fee: str(body.fee, 80),
       officialUrl: str(body.officialUrl, 300),
       description: str(body.description, 1000),
+      girlsOnly: body.girls === "only",
+      hasGirlsDivision: body.girls === "division",
     });
   } else {
     const name = str(body.name, 120);

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { Mascot } from "@/components/Mascot";
 import { REGIONS } from "@/lib/prefectures";
 import { AGE_LABEL, type AgeGroup } from "@/lib/types";
 import { clsx } from "@/lib/clsx";
@@ -122,8 +123,8 @@ export function SubmitForm() {
   if (done) {
     return (
       <div className="rounded-[var(--radius-card)] border-2 border-soon/40 bg-soon-soft/60 p-8 text-center">
-        <div className="text-5xl" aria-hidden>🎉</div>
-        <h2 className="mt-3 font-display text-2xl font-black text-ink">ありがとうございます！</h2>
+        <Mascot label="歩" bob className="mx-auto h-20 w-20" />
+        <h2 className="mt-3 font-display text-2xl font-black text-ink">ありがとうございます！🎉</h2>
         <p className="mt-3 leading-relaxed text-ink">
           申請を受けつけました。
           <br />
@@ -239,6 +240,31 @@ export function SubmitForm() {
               <Field label="参加費">
                 <input className={inputCls} value={f.fee ?? ""} onChange={set("fee")} placeholder="例：無料 / 500円" />
               </Field>
+            </div>
+            {/* 女子について */}
+            <div>
+              <span className="mb-1.5 block text-sm font-bold text-ink">女子について</span>
+              <div className="flex flex-wrap gap-2">
+                {[
+                  { v: "", label: "男女どちらでも" },
+                  { v: "only", label: "👧 女子限定の大会" },
+                  { v: "division", label: "👧 女子の部もある" },
+                ].map((o) => (
+                  <button
+                    key={o.v}
+                    type="button"
+                    onClick={() => setF((p) => ({ ...p, girls: o.v }))}
+                    className={clsx(
+                      "rounded-full border-2 px-4 py-2 text-sm font-bold transition",
+                      (f.girls ?? "") === o.v
+                        ? "border-girls bg-girls text-white"
+                        : "border-line bg-white text-ink hover:border-ink-soft",
+                    )}
+                  >
+                    {o.label}
+                  </button>
+                ))}
+              </div>
             </div>
           </>
         ) : (

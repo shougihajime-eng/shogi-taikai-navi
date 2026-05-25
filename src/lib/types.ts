@@ -51,6 +51,10 @@ export interface Tournament {
   recurrenceNote?: string;
   /** 全国規模か（地域でしぼっても常に表示する） */
   nationwide?: boolean;
+  /** 女子限定の大会か */
+  girlsOnly?: boolean;
+  /** 男女OKだが「女子の部」があるか */
+  hasGirlsDivision?: boolean;
   /** どこから集めた情報か */
   sourceName: string;
   sourceUrl?: string;

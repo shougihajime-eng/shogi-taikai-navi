@@ -8,15 +8,22 @@ import { clsx } from "@/lib/clsx";
 const AGE_OPTIONS: AgeGroup[] = ["elementary", "junior", "high"];
 
 /** 都道府県と学年で絞り込むメニュー（選ぶとURLが変わって一覧が更新される） */
-export function FilterBar({ accent = "brand" }: { accent?: "brand" | "sky" }) {
+export function FilterBar({
+  accent = "brand",
+  showGirls = false,
+}: {
+  accent?: "brand" | "sky";
+  showGirls?: boolean;
+}) {
   const router = useRouter();
   const pathname = usePathname();
   const params = useSearchParams();
 
   const pref = params.get("pref") ?? "";
   const age = params.get("age") ?? "";
+  const girls = params.get("girls") === "1";
 
-  function update(key: "pref" | "age", value: string) {
+  function update(key: "pref" | "age" | "girls", value: string) {
     const next = new URLSearchParams(params.toString());
     if (value) next.set(key, value);
     else next.delete(key);
@@ -58,6 +65,26 @@ export function FilterBar({ accent = "brand" }: { accent?: "brand" | "sky" }) {
         </div>
       </div>
 
+      {/* 女子でしぼる（大会ページだけ） */}
+      {showGirls && (
+        <div>
+          <p className="mb-2 text-sm font-bold text-ink-soft">女子でさがす</p>
+          <button
+            type="button"
+            onClick={() => update("girls", girls ? "" : "1")}
+            className={clsx(
+              "inline-flex items-center gap-1.5 rounded-full border-2 px-4 py-2 text-sm font-bold transition",
+              girls
+                ? "border-girls bg-girls text-white"
+                : "border-girls/40 bg-girls-soft text-girls hover:border-girls",
+            )}
+          >
+            <span aria-hidden>👧</span>
+            女子の部・女子大会だけ
+          </button>
+        </div>
+      )}
+
       {/* 都道府県で選ぶ */}
       <div>
         <label htmlFor="pref" className="mb-2 block text-sm font-bold text-ink-soft">
@@ -82,7 +109,7 @@ export function FilterBar({ accent = "brand" }: { accent?: "brand" | "sky" }) {
         </select>
       </div>
 
-      {(pref || age) && (
+      {(pref || age || girls) && (
         <button
           type="button"
           onClick={() => router.push(pathname, { scroll: false })}

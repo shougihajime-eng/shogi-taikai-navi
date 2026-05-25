@@ -31,6 +31,10 @@
   --color-soon-soft: #dcf3e1;
   --color-done: #9a9088;       /* 終了＝グレー */
 
+  /* 女子向けの色（ピンク） */
+  --color-girls: #e3589b;
+  --color-girls-soft: #ffe0ee;
+
   /* 学年バッジの色 */
   --color-elem: #2e9e57;       /* 小学生＝緑 */
   --color-elem-soft: #dcf3e3;
@@ -97,6 +101,24 @@ a, button {
 }
 .animate-float-in {
   animation: floatIn 0.5s ease-out both;
+}
+
+/* マスコットがふわふわする動き */
+@keyframes bob {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50% { transform: translateY(-8px) rotate(2deg); }
+}
+.animate-bob {
+  animation: bob 3s ease-in-out infinite;
+}
+
+/* きらきら */
+@keyframes twinkle {
+  0%, 100% { opacity: 0.3; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.15); }
+}
+.animate-twinkle {
+  animation: twinkle 2s ease-in-out infinite;
 }
 
 /* 動きが苦手な人向けに、アニメを控える設定を尊重 */

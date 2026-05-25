@@ -4,6 +4,7 @@ import { ORGANIZER_LABEL } from "@/lib/types";
 import { formatJPDate } from "@/lib/date";
 import { AgeBadges } from "./AgeBadge";
 import { StatusBadge } from "./StatusBadge";
+import { GirlsBadge } from "./GirlsBadge";
 import { clsx } from "@/lib/clsx";
 
 export function TournamentCard({ t }: { t: Tournament }) {
@@ -54,8 +55,11 @@ export function TournamentCard({ t }: { t: Tournament }) {
         </div>
       </dl>
 
-      {/* 学年バッジ */}
-      <AgeBadges groups={t.ageGroups} size="sm" />
+      {/* 学年バッジ＋女子バッジ */}
+      <div className="flex flex-wrap items-center gap-1.5">
+        <AgeBadges groups={t.ageGroups} size="sm" />
+        <GirlsBadge girlsOnly={t.girlsOnly} hasGirlsDivision={t.hasGirlsDivision} size="sm" />
+      </div>
 
       <span className="mt-1 text-sm font-bold text-brand-dark opacity-0 transition group-hover:opacity-100">
         くわしく見る →

@@ -6,6 +6,7 @@ import { ORGANIZER_LABEL } from "@/lib/types";
 import { formatJPDate } from "@/lib/date";
 import { AgeBadges } from "@/components/AgeBadge";
 import { StatusBadge } from "@/components/StatusBadge";
+import { GirlsBadge } from "@/components/GirlsBadge";
 import { Notice } from "@/components/Notice";
 
 export async function generateMetadata({
@@ -89,8 +90,9 @@ export default async function TournamentDetail({
           {t.title}
         </h1>
 
-        <div className="mt-3">
+        <div className="mt-3 flex flex-wrap items-center gap-2">
           <AgeBadges groups={t.ageGroups} />
+          <GirlsBadge girlsOnly={t.girlsOnly} hasGirlsDivision={t.hasGirlsDivision} />
         </div>
 
         {t.description && (

@@ -2,7 +2,7 @@ import Link from "next/link";
 import { getTournaments, getClasses } from "@/lib/data";
 import { TournamentCard } from "@/components/TournamentCard";
 import { ClassCard } from "@/components/ClassCard";
-import { KomaIcon } from "@/components/KomaIcon";
+import { Mascot } from "@/components/Mascot";
 import { Notice } from "@/components/Notice";
 import { SubmitCTA } from "@/components/SubmitCTA";
 
@@ -50,9 +50,10 @@ export default async function HomePage() {
         />
 
         <div className="relative mx-auto max-w-5xl px-4 pb-12 pt-12 sm:pt-16">
-          <div className="flex items-center justify-center gap-2 animate-float-in">
-            <KomaIcon label="王" className="h-12 w-12 -rotate-6" />
-            <KomaIcon label="歩" className="h-10 w-10 rotate-6" />
+          <div className="flex items-center justify-center gap-3 animate-float-in">
+            <span className="animate-twinkle text-2xl sm:text-3xl" aria-hidden>✨</span>
+            <Mascot label="歩" bob className="h-20 w-20 sm:h-28 sm:w-28" />
+            <span className="animate-twinkle text-2xl sm:text-3xl" style={{ animationDelay: "0.8s" }} aria-hidden>⭐</span>
           </div>
           <h1 className="mt-4 text-center font-display text-3xl font-black leading-tight text-ink sm:text-5xl">
             将棋の大会・教室を
@@ -106,6 +107,9 @@ export default async function HomePage() {
             </Link>
             <Link href="/taikai?age=high" className="rounded-full bg-hs-soft px-4 py-1.5 text-sm font-bold text-hs hover:brightness-95">
               高校生
+            </Link>
+            <Link href="/taikai?girls=1" className="rounded-full bg-girls-soft px-4 py-1.5 text-sm font-bold text-girls hover:brightness-95">
+              👧 女子の大会
             </Link>
           </div>
         </div>

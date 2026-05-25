@@ -18,15 +18,18 @@ const VALID_AGES: AgeGroup[] = ["elementary", "junior", "high"];
 export default async function TaikaiPage({
   searchParams,
 }: {
-  searchParams: Promise<{ pref?: string; age?: string }>;
+  searchParams: Promise<{ pref?: string; age?: string; girls?: string }>;
 }) {
   const sp = await searchParams;
   const pref = sp.pref || undefined;
   const age = VALID_AGES.includes(sp.age as AgeGroup) ? (sp.age as AgeGroup) : undefined;
+  const girlsOnly = sp.girls === "1";
 
-  const tournaments = await getTournaments({ prefecture: pref, ageGroup: age });
+  const tournaments = await getTournaments({ prefecture: pref, ageGroup: age, girlsOnly });
 
-  const filterText = [pref, age ? AGE_LABEL[age] : null].filter(Boolean).join("・");
+  const filterText = [pref, age ? AGE_LABEL[age] : null, girlsOnly ? "女子向け" : null]
+    .filter(Boolean)
+    .join("・");
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-8">
@@ -36,7 +39,7 @@ export default async function TaikaiPage({
       </p>
 
       <div className="mt-6">
-        <FilterBar accent="brand" />
+        <FilterBar accent="brand" showGirls />
       </div>
 
       <div className="mt-6 mb-4 flex items-center justify-between">

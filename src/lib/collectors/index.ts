@@ -51,6 +51,8 @@ function tournamentRows() {
     is_recurring: t.isRecurring ?? false,
     recurrence_note: t.recurrenceNote ?? null,
     nationwide: t.nationwide ?? false,
+    girls_only: t.girlsOnly ?? false,
+    has_girls_division: t.hasGirlsDivision ?? false,
     source_name: t.sourceName,
     source_url: t.sourceUrl ?? null,
     source_kind: "system",

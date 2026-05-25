@@ -13,6 +13,8 @@ import type {
 export interface TournamentFilter {
   prefecture?: string;
   ageGroup?: AgeGroup;
+  /** 女子向け（女子限定 or 女子の部あり）だけにしぼる */
+  girlsOnly?: boolean;
   /** 終了したものも含めるか（既定は含めない） */
   includeFinished?: boolean;
 }
@@ -50,6 +52,8 @@ function mapTournament(row: any): Tournament {
     isRecurring,
     recurrenceNote: row.recurrence_note ?? undefined,
     nationwide: row.nationwide ?? false,
+    girlsOnly: row.girls_only ?? false,
+    hasGirlsDivision: row.has_girls_division ?? false,
     sourceName: row.source_name ?? "",
     sourceUrl: row.source_url ?? undefined,
     status: computeStatus(eventDate, endDate, isRecurring),
@@ -106,6 +110,8 @@ function applyTournamentFilter(list: Tournament[], f: TournamentFilter): Tournam
   // 全国規模の大会は、どの都道府県でしぼっても表示する
   if (f.prefecture) out = out.filter((t) => t.prefecture === f.prefecture || t.nationwide);
   if (f.ageGroup) out = out.filter((t) => t.ageGroups.includes(f.ageGroup!));
+  // 女子向け（女子限定 or 女子の部あり）
+  if (f.girlsOnly) out = out.filter((t) => t.girlsOnly || t.hasGirlsDivision);
   return sortTournaments(out);
 }
 

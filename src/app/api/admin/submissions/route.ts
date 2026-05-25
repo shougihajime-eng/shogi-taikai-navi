@@ -60,6 +60,8 @@ function tournamentRowFromPayload(p: any) {
     description: p.description || null,
     is_recurring: false,
     nationwide: false,
+    girls_only: p.girlsOnly === true,
+    has_girls_division: p.hasGirlsDivision === true,
     source_name: "みんなの申請",
     source_kind: "submission",
   };

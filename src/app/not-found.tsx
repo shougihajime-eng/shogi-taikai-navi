@@ -1,10 +1,10 @@
 import Link from "next/link";
-import { KomaIcon } from "@/components/KomaIcon";
+import { Mascot } from "@/components/Mascot";
 
 export default function NotFound() {
   return (
     <div className="mx-auto flex max-w-xl flex-col items-center px-4 py-20 text-center">
-      <KomaIcon label="？" className="h-20 w-20" />
+      <Mascot label="？" bob className="h-24 w-24" />
       <h1 className="mt-6 font-display text-3xl font-black text-ink">
         ページが見つかりません
       </h1>

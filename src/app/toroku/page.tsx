@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { SubmitForm } from "@/components/SubmitForm";
-import { KomaIcon } from "@/components/KomaIcon";
+import { Mascot } from "@/components/Mascot";
 
 export const metadata: Metadata = {
   title: "大会・教室を登録する",
@@ -12,7 +12,7 @@ export default function TorokuPage() {
   return (
     <div className="mx-auto max-w-2xl px-4 py-8">
       <div className="flex items-center gap-3">
-        <KomaIcon label="登" className="h-11 w-11" />
+        <Mascot label="登" bob className="h-14 w-14" />
         <h1 className="font-display text-2xl font-black text-ink sm:text-3xl">
           大会・教室を登録する
         </h1>
