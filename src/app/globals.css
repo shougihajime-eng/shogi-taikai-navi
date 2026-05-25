@@ -82,6 +82,23 @@ a, button {
   border-radius: 6px;
 }
 
+/* 将棋盤のような格子もよう（ヒーローの背景にうっすら使う） */
+.board-grid {
+  background-image:
+    linear-gradient(to right, rgba(216, 161, 74, 0.18) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(216, 161, 74, 0.18) 1px, transparent 1px);
+  background-size: 46px 46px;
+}
+
+/* ふわっと浮き上がる登場アニメ */
+@keyframes floatIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-float-in {
+  animation: floatIn 0.5s ease-out both;
+}
+
 /* 動きが苦手な人向けに、アニメを控える設定を尊重 */
 @media (prefers-reduced-motion: reduce) {
   * {

@@ -5,6 +5,19 @@ import { ClassCard } from "@/components/ClassCard";
 import { KomaIcon } from "@/components/KomaIcon";
 import { Notice } from "@/components/Notice";
 
+// よくさがされる地域（トップのショートカット用）
+const POPULAR_PREFS = [
+  "北海道",
+  "東京都",
+  "神奈川県",
+  "愛知県",
+  "大阪府",
+  "兵庫県",
+  "広島県",
+  "福岡県",
+  "沖縄県",
+];
+
 export default async function HomePage() {
   const [tournaments, classes] = await Promise.all([
     getTournaments({ includeFinished: false }),
@@ -17,9 +30,20 @@ export default async function HomePage() {
   return (
     <div>
       {/* ===== ヒーロー（いちばん上の大きな案内） ===== */}
-      <section className="relative overflow-hidden">
-        <div className="mx-auto max-w-5xl px-4 pb-10 pt-12 sm:pt-16">
-          <div className="flex items-center justify-center gap-2">
+      <section className="relative overflow-hidden border-b-2 border-line">
+        {/* 将棋盤のような格子もよう */}
+        <div className="board-grid pointer-events-none absolute inset-0 opacity-60" aria-hidden />
+        <div
+          className="pointer-events-none absolute inset-0"
+          aria-hidden
+          style={{
+            background:
+              "radial-gradient(120% 80% at 50% 0%, rgba(255,233,210,0.9) 0%, rgba(253,246,236,0.2) 60%, transparent 100%)",
+          }}
+        />
+
+        <div className="relative mx-auto max-w-5xl px-4 pb-12 pt-12 sm:pt-16">
+          <div className="flex items-center justify-center gap-2 animate-float-in">
             <KomaIcon label="王" className="h-12 w-12 -rotate-6" />
             <KomaIcon label="歩" className="h-10 w-10 rotate-6" />
           </div>
@@ -34,8 +58,20 @@ export default async function HomePage() {
             全国の将棋大会と将棋教室をまとめた案内サイトだよ。
           </p>
 
+          {/* 件数 */}
+          <div className="mx-auto mt-5 flex max-w-md items-center justify-center gap-3 text-center">
+            <div className="flex-1 rounded-2xl border-2 border-brand-soft bg-card px-3 py-2">
+              <div className="font-display text-2xl font-black text-brand">{tournaments.length}</div>
+              <div className="text-xs font-bold text-ink-soft">予定の大会</div>
+            </div>
+            <div className="flex-1 rounded-2xl border-2 border-sky-soft bg-card px-3 py-2">
+              <div className="font-display text-2xl font-black text-sky-dark">{classes.length}</div>
+              <div className="text-xs font-bold text-ink-soft">将棋教室</div>
+            </div>
+          </div>
+
           {/* 大きな2つのボタン */}
-          <div className="mx-auto mt-8 grid max-w-2xl gap-4 sm:grid-cols-2">
+          <div className="mx-auto mt-7 grid max-w-2xl gap-4 sm:grid-cols-2">
             <Link
               href="/taikai"
               className="flex items-center justify-center gap-3 rounded-[var(--radius-card)] bg-brand px-6 py-5 text-center text-xl font-black text-white shadow-md transition hover:-translate-y-1 hover:bg-brand-dark hover:shadow-lg"
@@ -65,6 +101,30 @@ export default async function HomePage() {
               高校生
             </Link>
           </div>
+        </div>
+      </section>
+
+      {/* ===== 地域からさがす ===== */}
+      <section className="mx-auto max-w-5xl px-4 py-8">
+        <h2 className="mb-4 font-display text-2xl font-black text-ink sm:text-3xl">
+          📍 地域からさがす
+        </h2>
+        <div className="flex flex-wrap gap-2.5">
+          {POPULAR_PREFS.map((p) => (
+            <Link
+              key={p}
+              href={`/taikai?pref=${encodeURIComponent(p)}`}
+              className="rounded-full border-2 border-line bg-card px-4 py-2 text-sm font-bold text-ink transition hover:-translate-y-0.5 hover:border-brand hover:text-brand-dark"
+            >
+              {p}
+            </Link>
+          ))}
+          <Link
+            href="/taikai"
+            className="rounded-full bg-brand-soft px-4 py-2 text-sm font-bold text-brand-dark transition hover:-translate-y-0.5 hover:brightness-95"
+          >
+            ほかの地域も見る →
+          </Link>
         </div>
       </section>
 
