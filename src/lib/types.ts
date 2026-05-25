@@ -10,10 +10,11 @@ export const AGE_LABEL: Record<AgeGroup, string> = {
 };
 
 /** 主催の種類 */
-export type OrganizerType = "jsa" | "municipal" | "private" | "other";
+export type OrganizerType = "jsa" | "lpsa" | "municipal" | "private" | "other";
 
 export const ORGANIZER_LABEL: Record<OrganizerType, string> = {
   jsa: "日本将棋連盟",
+  lpsa: "日本女子プロ将棋協会",
   municipal: "自治体・公共",
   private: "民間・道場",
   other: "その他",
