@@ -34,18 +34,23 @@ export default async function TaikaiPage({
   return (
     <div className="mx-auto max-w-5xl px-4 py-8">
       <h1 className="font-display text-3xl font-black text-ink sm:text-4xl">🏆 将棋大会をさがす</h1>
-      <p className="mt-2 text-ink-soft">
-        地域や学年でしぼりこめます。開催が近いものから順にならんでいます。
+      <p className="mt-2 leading-relaxed text-ink-soft">
+        学年や地域でしぼりこめるよ。開催が近いものから順にならんでいるよ。
       </p>
 
       <div className="mt-6">
         <FilterBar accent="brand" showGirls />
       </div>
 
-      <div className="mt-6 mb-4 flex items-center justify-between">
+      <div className="mb-4 mt-6 flex items-center gap-2">
+        <span className="rounded-full bg-brand px-3 py-1 font-display text-lg font-black text-white">
+          {tournaments.length}
+        </span>
         <p className="font-bold text-ink">
-          {filterText ? <span className="text-brand-dark">{filterText}</span> : "全国"}
-          の大会：<span className="text-brand-dark">{tournaments.length}</span> 件
+          件みつかったよ
+          {filterText && (
+            <span className="ml-1 text-sm font-bold text-brand-dark">（{filterText}）</span>
+          )}
         </p>
       </div>
 

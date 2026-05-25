@@ -8,12 +8,16 @@ import { GirlsBadge } from "./GirlsBadge";
 import { clsx } from "@/lib/clsx";
 
 export function TournamentCard({ t }: { t: Tournament }) {
+  const accent = t.girlsOnly ? "before:bg-girls" : "before:bg-brand";
   return (
     <Link
       href={`/taikai/${t.id}`}
       className={clsx(
-        "group relative flex flex-col gap-3 rounded-[var(--radius-card)] border-2 border-line bg-card p-5",
-        "shadow-sm transition hover:-translate-y-1 hover:border-brand hover:shadow-lg",
+        "group relative flex flex-col gap-3 overflow-hidden rounded-[var(--radius-card)] border-2 border-line bg-card p-5 pt-6",
+        "shadow-sm transition hover:-translate-y-1.5 hover:border-brand hover:shadow-lg",
+        // 上ふちに色のアクセント帯
+        "before:absolute before:inset-x-0 before:top-0 before:h-2 before:content-['']",
+        accent,
         t.status === "finished" && "opacity-70",
       )}
     >

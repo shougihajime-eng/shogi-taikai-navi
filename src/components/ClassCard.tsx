@@ -1,12 +1,18 @@
 import Link from "next/link";
 import type { ShogiClass } from "@/lib/types";
 import { AgeBadges } from "./AgeBadge";
+import { clsx } from "@/lib/clsx";
 
 export function ClassCard({ c }: { c: ShogiClass }) {
   return (
     <Link
       href={`/kyoshitsu/${c.id}`}
-      className="group flex flex-col gap-3 rounded-[var(--radius-card)] border-2 border-line bg-card p-5 shadow-sm transition hover:-translate-y-1 hover:border-sky hover:shadow-lg"
+      className={clsx(
+        "group relative flex flex-col gap-3 overflow-hidden rounded-[var(--radius-card)] border-2 border-line bg-card p-5 pt-6 shadow-sm transition hover:-translate-y-1.5 hover:border-sky hover:shadow-lg",
+        // 上ふちに色のアクセント帯（女子向けはピンク）
+        "before:absolute before:inset-x-0 before:top-0 before:h-2 before:content-['']",
+        c.forGirls ? "before:bg-girls" : "before:bg-sky",
+      )}
     >
       <div className="flex flex-wrap items-center gap-2">
         <span className="rounded-full bg-sky-soft px-2.5 py-0.5 text-xs font-bold text-sky-dark">

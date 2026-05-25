@@ -33,6 +33,7 @@
 
   /* 女子向けの色（ピンク） */
   --color-girls: #e3589b;
+  --color-girls-dark: #cf3f86;
   --color-girls-soft: #ffe0ee;
 
   /* 学年バッジの色 */
@@ -43,8 +44,13 @@
   --color-hs: #8a4fd6;         /* 高校生＝紫 */
   --color-hs-soft: #ece0fb;
 
+  /* 楽しいパステル（飾りに使う） */
+  --color-lemon: #ffd84d;      /* きいろ */
+  --color-mint: #74d6b4;       /* みどり水色 */
+  --color-grape: #b58cff;      /* むらさき */
+
   /* 角丸・影 */
-  --radius-card: 1.25rem;
+  --radius-card: 1.5rem;
 }
 
 :root {
@@ -58,10 +64,13 @@ html {
 
 body {
   background-color: var(--color-paper);
-  /* やさしい市松（チェック）模様をほんのり */
+  /* やさしい水玉模様＋うっすら色づくグラデーションで楽しい雰囲気に */
   background-image:
-    radial-gradient(circle at 1px 1px, rgba(216, 161, 74, 0.10) 1px, transparent 0);
-  background-size: 22px 22px;
+    radial-gradient(circle at 1px 1px, rgba(216, 161, 74, 0.10) 1px, transparent 0),
+    radial-gradient(110% 60% at 100% 0%, rgba(255, 224, 238, 0.45) 0%, transparent 55%),
+    radial-gradient(110% 60% at 0% 0%, rgba(215, 240, 250, 0.45) 0%, transparent 55%);
+  background-size: 22px 22px, 100% 100%, 100% 100%;
+  background-attachment: scroll, fixed, fixed;
   color: var(--color-ink);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
@@ -119,6 +128,49 @@ a, button {
 }
 .animate-twinkle {
   animation: twinkle 2s ease-in-out infinite;
+}
+
+/* ぽよんと登場（カードやボタンに） */
+@keyframes popIn {
+  0% { opacity: 0; transform: scale(0.92); }
+  70% { transform: scale(1.02); }
+  100% { opacity: 1; transform: scale(1); }
+}
+.animate-pop-in {
+  animation: popIn 0.4s ease-out both;
+}
+
+/* ぷるぷる（押せるものを軽くゆらす） */
+@keyframes wiggle {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-3deg); }
+  75% { transform: rotate(3deg); }
+}
+.hover-wiggle:hover {
+  animation: wiggle 0.4s ease-in-out;
+}
+
+/* 文字に虹色グラデーション（見出しのアクセント用） */
+.text-rainbow {
+  background-image: linear-gradient(90deg, var(--color-brand), var(--color-girls) 45%, var(--color-grape) 75%, var(--color-sky));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* シール風の押せるカード（うっすら影で浮かせる） */
+.sticker {
+  box-shadow: 0 4px 0 0 rgba(216, 161, 74, 0.20);
+}
+
+/* スマホの下メニュー分、本文の下に余白を作る（パソコンでは不要） */
+.has-bottom-nav {
+  padding-bottom: 5.5rem;
+}
+@media (min-width: 768px) {
+  .has-bottom-nav {
+    padding-bottom: 0;
+  }
 }
 
 /* 動きが苦手な人向けに、アニメを控える設定を尊重 */

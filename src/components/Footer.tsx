@@ -3,7 +3,7 @@ import Link from "next/link";
 export function Footer() {
   return (
     <footer className="mt-auto border-t-2 border-line bg-card">
-      <div className="mx-auto max-w-5xl px-4 py-8 text-sm text-ink-soft">
+      <div className="mx-auto max-w-5xl px-4 pb-28 pt-8 text-sm text-ink-soft md:pb-8">
         <div className="flex flex-wrap gap-x-6 gap-y-2">
           <Link href="/" className="font-bold hover:text-ink">ホーム</Link>
           <Link href="/taikai" className="font-bold hover:text-ink">大会をさがす</Link>

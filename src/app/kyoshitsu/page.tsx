@@ -33,7 +33,7 @@ export default async function KyoshitsuPage({
   return (
     <div className="mx-auto max-w-5xl px-4 py-8">
       <h1 className="font-display text-3xl font-black text-ink sm:text-4xl">🎓 将棋教室をさがす</h1>
-      <p className="mt-2 text-ink-soft">
+      <p className="mt-2 leading-relaxed text-ink-soft">
         近くの将棋教室をさがしてみよう。はじめての子でも通えるところがたくさんあるよ。
       </p>
 
@@ -41,10 +41,15 @@ export default async function KyoshitsuPage({
         <FilterBar accent="sky" showGirls girlsLabel="女子も安心の教室だけ" />
       </div>
 
-      <div className="mt-6 mb-4">
+      <div className="mb-4 mt-6 flex items-center gap-2">
+        <span className="rounded-full bg-sky px-3 py-1 font-display text-lg font-black text-white">
+          {classes.length}
+        </span>
         <p className="font-bold text-ink">
-          {filterText ? <span className="text-sky-dark">{filterText}</span> : "全国"}
-          の教室：<span className="text-sky-dark">{classes.length}</span> 件
+          件みつかったよ
+          {filterText && (
+            <span className="ml-1 text-sm font-bold text-sky-dark">（{filterText}）</span>
+          )}
         </p>
       </div>
 

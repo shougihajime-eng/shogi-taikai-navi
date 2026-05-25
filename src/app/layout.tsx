@@ -3,6 +3,7 @@ import { Zen_Maru_Gothic, Noto_Sans_JP } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { MobileNav } from "@/components/MobileNav";
 
 // 見出し用：まるくてやさしいフォント
 const zenMaru = Zen_Maru_Gothic({
@@ -57,8 +58,9 @@ export default function RootLayout({
     <html lang="ja" className={`${zenMaru.variable} ${notoSansJP.variable} h-full`}>
       <body className="flex min-h-full flex-col">
         <Header />
-        <main className="flex-1">{children}</main>
+        <main className="has-bottom-nav flex-1">{children}</main>
         <Footer />
+        <MobileNav />
       </body>
     </html>
   );
