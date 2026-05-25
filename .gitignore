@@ -43,3 +43,5 @@ next-env.d.ts
 
 # 一時ファイル
 .cron_secret.tmp
+
+.vercel

@@ -7,10 +7,10 @@
 
 ## 進捗（いまここ）
 
-- ✅ 済み：サイトの土台・全画面（トップ／大会一覧・詳細／教室一覧・詳細／このサイトについて）、
-  毎朝4時の自動更新の仕組み、Supabaseスキーマ作成＋本物データ投入、ローカルで全ページ動作確認
-- 🟡 進行中：GitHub保存とVercel公開（本番URLが決まったらこの欄に記入）
-- 🔜 次の一歩：Vercelに環境変数を登録 → 公開 → 本番で自動更新が動くか確認
+- ✅ 済み：サイト完成・本番公開ずみ（https://shogi-taikai-navi.vercel.app）。
+  全画面・毎朝4時の自動更新・Supabase本物データ投入、本番で全ページ動作＆自動更新の成功を確認
+- 🟡 進行中：（なし。初版リリース完了）
+- 🔜 次の一歩：大会・教室を増やす（`src/lib/seed.ts` に追記）／RSS等の自動取得元を足す
 
 ---
 
@@ -92,5 +92,8 @@ curl "http://localhost:3000/api/cron/refresh?key=<CRON_SECRET>"
 
 ## 本番URL
 
-- 公開URL：（Vercel公開後に記入）
-- GitHub：（push後に記入）
+- 公開URL：https://shogi-taikai-navi.vercel.app
+- GitHub：https://github.com/shougihajime-eng/shogi-taikai-navi
+- Vercel：shougihajime-3368s-projects/shogi-taikai-navi（GitHub main へ push で自動公開）
+- 自動更新を手動で1回動かす：`https://shogi-taikai-navi.vercel.app/api/cron/refresh?key=<CRON_SECRET>`
+  （CRON_SECRET は `.env.local` と Vercel 環境変数にある。git には無い）
