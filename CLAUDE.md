@@ -7,10 +7,13 @@
 
 ## 進捗（いまここ）
 
-- ✅ 済み：サイト完成・本番公開ずみ（https://shogi-taikai-navi.vercel.app）。
-  全画面・毎朝4時の自動更新・Supabase本物データ投入、本番で全ページ動作＆自動更新の成功を確認
-- 🟡 進行中：（なし。初版リリース完了）
-- 🔜 次の一歩：大会・教室を増やす（`src/lib/seed.ts` に追記）／RSS等の自動取得元を足す
+- ✅ 済み：本気版リリース。正直な本物データ（毎年開催の全国主要大会8＋実在教室2）、
+  みんなの申請フォーム＋承認の仕組み、SNS共有画像・検索対策。本番で申請→承認→公開まで動作確認ずみ
+- 🟡 進行中：（なし。本気版リリース完了。これからは申請が来たら承認していく運用フェーズ）
+- 🔜 次の一歩：申請が来たら確認・承認（下記「申請の確認方法」）／必要なら全国主要大会をさらに追加
+
+> ⚠️ データ方針：**うその日付は出さない**。土台は「毎年開催の実在大会」のみ。
+> 地域の大会・教室は**みんなの申請（確認後に公開）**で増やす。
 
 ---
 
@@ -36,17 +39,35 @@
 - 自動更新：Vercel Cron `0 19 * * *`（UTC）＝**日本時間4時**。`/api/cron/refresh` を呼ぶ
 - 公開：Vercel（GitHub main 自動デプロイ予定）
 
-### 自動収集についての正直な前提（重要）
+### データの集め方（本気版の方針）
 
-日本将棋連盟など多くの公式サイトは **ロボットによる自動取得を拒否**している
-（アクセスすると 503 が返る）。これを無理に突破するのは規約違反なので **行わない**。
-そのため自動更新は次の確実な処理を毎朝行う：
+日本将棋連盟など多くの公式サイトは **ロボットによる自動取得を拒否**している（503）。
+無理な突破は規約違反なので行わない。よってデータは2本立て：
 
-1. 厳選した全国の有名なこども大会・教室一覧（`src/lib/seed.ts`）を最新化（upsert）
-2. 開催から60日以上たった古い大会をお片付け（delete）
-3. 将来、機械が読める形（RSS / iCal / 公開API）の取得元を `sources` に足せば取り込める拡張ポイントあり
+1. **土台（system）**：毎年ひらかれる実在の全国主要大会＝`src/lib/seed.ts`。日付は出さず
+   「毎年◯月ごろ・今年は公式で確認」表示（`isRecurring`/`recurrenceNote`/`nationwide`）。
+   毎朝の自動更新で upsert＋古い大会のお片付け。土台から外すと自動で消える。
+2. **みんなの申請（submission）**：公開フォーム `/toroku` → `submissions`(pending) →
+   **確認後に承認したものだけ**公開。地域の大会・教室はこれで増やす。
 
-新しい大会・教室を増やすときは **`src/lib/seed.ts` に追記**し、自動更新が走れば本番DBに反映される。
+### 申請の確認方法（Claude が運用で使う・重要）
+
+管理ページは作っていない。**申請の確認・承認は Claude（私）が API 経由で行う**。
+本人が「申請ある？／申請を確認して」と言ったら、次を実行する（`<SECRET>` は Vercel/.env.local の `CRON_SECRET`）：
+
+```bash
+# 確認待ち一覧を見る
+curl "https://shogi-taikai-navi.vercel.app/api/admin/submissions?key=<SECRET>&status=pending"
+# 承認して公開（id は上の一覧から）
+curl -X POST "https://shogi-taikai-navi.vercel.app/api/admin/submissions?key=<SECRET>" \
+  -H "Content-Type: application/json" -d '{"id":"<申請ID>","action":"approve"}'
+# 却下（公開しない）
+curl -X POST "https://shogi-taikai-navi.vercel.app/api/admin/submissions?key=<SECRET>" \
+  -H "Content-Type: application/json" -d '{"id":"<申請ID>","action":"reject"}'
+```
+
+※ 日本語をシェルの `-d` で送ると文字化けすることがある。確認・承認は **Node スクリプト（fetch）** で
+行うと確実（`JSON.stringify` で正しい UTF-8 になる）。本番でこの方式での疎通確認ずみ。
 
 ---
 
@@ -58,11 +79,15 @@
 | `src/app/taikai/` | 大会の一覧・詳細 |
 | `src/app/kyoshitsu/` | 教室の一覧・詳細 |
 | `src/app/about/page.tsx` | このサイトについて |
+| `src/app/toroku/page.tsx` + `src/components/SubmitForm.tsx` | みんなの申請フォーム（公開） |
+| `src/app/api/submit/route.ts` | 申請の受け取り（pending保存・honeypot） |
+| `src/app/api/admin/submissions/route.ts` | 申請の確認・承認（合言葉で保護・Claude運用） |
 | `src/app/api/cron/refresh/route.ts` | 毎朝4時に呼ばれる自動更新API |
-| `src/lib/seed.ts` | 大会・教室の元データ（ここを編集して増やす） |
+| `src/app/opengraph-image.tsx` / `sitemap.ts` / `robots.ts` | SNS共有画像・検索対策 |
+| `src/lib/seed.ts` | 土台データ（毎年開催の全国主要大会。ここを編集して増やす） |
 | `src/lib/data.ts` | DB or 見本データから取り出す処理 |
-| `src/lib/collectors/index.ts` | 自動更新の中身（upsert＋お片付け） |
-| `supabase/migrations/0001_init.sql` | DBの設計図（スキーマ・表・権限） |
+| `src/lib/collectors/index.ts` | 自動更新の中身（upsert＋お片付け＋土台の同期） |
+| `supabase/migrations/*.sql` | DBの設計図（0001=基本、0002=毎年開催＋申請） |
 
 ---
 
