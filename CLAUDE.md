@@ -7,7 +7,8 @@
 
 ## 進捗（いまここ）
 
-- ✅ 済み：本気版リリース。正直な本物データ（毎年開催の主要大会14＝日本将棋連盟・LPSA・JT等／うち女子大会6・実在教室3＝LPSA女子教室含む）、
+- ✅ 済み：本気版リリース。正直な本物データ（毎年開催の主要大会17＝日本将棋連盟・LPSA・JT・イオン・天童・高槻等／うち女子大会6・実在教室3＝LPSA女子教室含む）、
+  女子専用ページ /joshi（女子の大会＋女子も安心の教室をピンクで集約）、
   みんなの申請フォーム＋承認、SNS共有画像・検索対策。
   さらに **女子の部・女子大会で検索**（ピンクのバッジ＋絞り込み）と、**子ども向けの可愛い見た目**
   （顔つきの駒マスコット「ぽんちゃん」・キラキラ・ふわふわ動き・パステルピンク）を追加。本番で全て動作確認ずみ
@@ -80,6 +81,7 @@ curl -X POST "https://shogi-taikai-navi.vercel.app/api/admin/submissions?key=<SE
 | `src/app/page.tsx` | トップページ |
 | `src/app/taikai/` | 大会の一覧・詳細 |
 | `src/app/kyoshitsu/` | 教室の一覧・詳細 |
+| `src/app/joshi/page.tsx` | 女子専用ページ（女子の大会＋女子も安心の教室） |
 | `src/app/about/page.tsx` | このサイトについて |
 | `src/app/toroku/page.tsx` + `src/components/SubmitForm.tsx` | みんなの申請フォーム（公開） |
 | `src/app/api/submit/route.ts` | 申請の受け取り（pending保存・honeypot） |
