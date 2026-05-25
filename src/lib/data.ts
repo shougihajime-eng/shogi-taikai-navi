@@ -27,8 +27,9 @@ export interface ClassFilter {
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 function mapTournament(row: any): Tournament {
-  const eventDate: string = row.event_date;
+  const eventDate: string | undefined = row.event_date ?? undefined;
   const endDate: string | undefined = row.end_date ?? undefined;
+  const isRecurring: boolean = row.is_recurring ?? false;
   return {
     id: String(row.id),
     title: row.title,
@@ -46,9 +47,12 @@ function mapTournament(row: any): Tournament {
     capacity: row.capacity ?? undefined,
     officialUrl: row.official_url ?? undefined,
     description: row.description ?? undefined,
+    isRecurring,
+    recurrenceNote: row.recurrence_note ?? undefined,
+    nationwide: row.nationwide ?? false,
     sourceName: row.source_name ?? "",
     sourceUrl: row.source_url ?? undefined,
-    status: computeStatus(eventDate, endDate),
+    status: computeStatus(eventDate, endDate, isRecurring),
   };
 }
 
@@ -76,25 +80,31 @@ function mapClass(row: any): ShogiClass {
 function seedTournaments(): Tournament[] {
   return SEED_TOURNAMENTS.map((t) => ({
     ...t,
-    status: computeStatus(t.eventDate, t.endDate),
+    status: computeStatus(t.eventDate, t.endDate, t.isRecurring),
   }));
 }
 
-// 開催日が近い順（終了は後ろ）に並べる
+// 並び：開催中→日付が近いこれから→毎年開催→終了
 function sortTournaments(list: Tournament[]): Tournament[] {
-  const order: Record<EventStatus, number> = { ongoing: 0, upcoming: 1, finished: 2 };
+  const order: Record<EventStatus, number> = {
+    ongoing: 0,
+    upcoming: 1,
+    recurring: 2,
+    finished: 3,
+  };
   return [...list].sort((a, b) => {
     if (order[a.status] !== order[b.status]) return order[a.status] - order[b.status];
-    // 終了したものは新しい順、それ以外は近い順
-    if (a.status === "finished") return a.eventDate < b.eventDate ? 1 : -1;
-    return a.eventDate < b.eventDate ? -1 : 1;
+    if (a.status === "finished") return (a.eventDate ?? "") < (b.eventDate ?? "") ? 1 : -1;
+    if (a.status === "recurring") return a.title < b.title ? -1 : 1;
+    return (a.eventDate ?? "") < (b.eventDate ?? "") ? -1 : 1;
   });
 }
 
 function applyTournamentFilter(list: Tournament[], f: TournamentFilter): Tournament[] {
   let out = list;
   if (!f.includeFinished) out = out.filter((t) => t.status !== "finished");
-  if (f.prefecture) out = out.filter((t) => t.prefecture === f.prefecture);
+  // 全国規模の大会は、どの都道府県でしぼっても表示する
+  if (f.prefecture) out = out.filter((t) => t.prefecture === f.prefecture || t.nationwide);
   if (f.ageGroup) out = out.filter((t) => t.ageGroups.includes(f.ageGroup!));
   return sortTournaments(out);
 }

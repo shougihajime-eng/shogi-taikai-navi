@@ -4,6 +4,7 @@ import { TournamentCard } from "@/components/TournamentCard";
 import { ClassCard } from "@/components/ClassCard";
 import { KomaIcon } from "@/components/KomaIcon";
 import { Notice } from "@/components/Notice";
+import { SubmitCTA } from "@/components/SubmitCTA";
 
 // よくさがされる地域（トップのショートカット用）
 const POPULAR_PREFS = [
@@ -24,7 +25,10 @@ export default async function HomePage() {
     getClasses(),
   ]);
 
-  const upcoming = tournaments.slice(0, 6);
+  const dated = tournaments
+    .filter((t) => t.status === "upcoming" || t.status === "ongoing")
+    .slice(0, 6);
+  const recurring = tournaments.filter((t) => t.status === "recurring").slice(0, 6);
   const someClasses = classes.slice(0, 3);
 
   return (
@@ -128,28 +132,40 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ===== もうすぐの大会 ===== */}
+      {/* ===== もうすぐの大会（日付が決まっているもの） ===== */}
+      {dated.length > 0 && (
+        <section className="mx-auto max-w-5xl px-4 py-8">
+          <div className="mb-4 flex items-end justify-between gap-3">
+            <h2 className="font-display text-2xl font-black text-ink sm:text-3xl">
+              🔥 もうすぐの大会
+            </h2>
+            <Link href="/taikai" className="shrink-0 text-sm font-bold text-brand-dark hover:underline">
+              ぜんぶ見る →
+            </Link>
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {dated.map((t) => (
+              <TournamentCard key={t.id} t={t} />
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* ===== 毎年ひらかれる全国の大会 ===== */}
       <section className="mx-auto max-w-5xl px-4 py-8">
         <div className="mb-4 flex items-end justify-between gap-3">
           <h2 className="font-display text-2xl font-black text-ink sm:text-3xl">
-            🔥 もうすぐの大会
+            🏆 毎年ひらかれる全国の大会
           </h2>
           <Link href="/taikai" className="shrink-0 text-sm font-bold text-brand-dark hover:underline">
             ぜんぶ見る →
           </Link>
         </div>
-
-        {upcoming.length > 0 ? (
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {upcoming.map((t) => (
-              <TournamentCard key={t.id} t={t} />
-            ))}
-          </div>
-        ) : (
-          <p className="rounded-2xl border-2 border-dashed border-line bg-card p-6 text-center text-ink-soft">
-            いまは予定されている大会がありません。また見にきてね。
-          </p>
-        )}
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {recurring.map((t) => (
+            <TournamentCard key={t.id} t={t} />
+          ))}
+        </div>
       </section>
 
       {/* ===== 将棋教室 ===== */}
@@ -167,6 +183,11 @@ export default async function HomePage() {
             <ClassCard key={c.id} c={c} />
           ))}
         </div>
+      </section>
+
+      {/* ===== 登録のよびかけ ===== */}
+      <section className="mx-auto max-w-5xl px-4 py-8">
+        <SubmitCTA />
       </section>
 
       {/* ===== 注意書き ===== */}

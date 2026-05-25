@@ -18,7 +18,12 @@ export function TournamentCard({ t }: { t: Tournament }) {
     >
       {/* 上の段：状態と主催 */}
       <div className="flex items-center justify-between gap-2">
-        <StatusBadge eventDate={t.eventDate} endDate={t.endDate} status={t.status} />
+        <StatusBadge
+          eventDate={t.eventDate}
+          endDate={t.endDate}
+          isRecurring={t.isRecurring}
+          status={t.status}
+        />
         <span className="rounded-full bg-brand-soft px-2.5 py-0.5 text-xs font-bold text-brand-dark">
           {ORGANIZER_LABEL[t.organizerType]}
         </span>
@@ -33,7 +38,11 @@ export function TournamentCard({ t }: { t: Tournament }) {
       <dl className="space-y-1 text-sm text-ink-soft">
         <div className="flex items-start gap-2">
           <span aria-hidden>📅</span>
-          <span className="font-semibold text-ink">{formatJPDate(t.eventDate)}</span>
+          <span className="font-semibold text-ink">
+            {t.status === "recurring"
+              ? (t.recurrenceNote ?? (t.isRecurring ? "毎年開催" : "日程は未定"))
+              : formatJPDate(t.eventDate)}
+          </span>
         </div>
         <div className="flex items-start gap-2">
           <span aria-hidden>📍</span>

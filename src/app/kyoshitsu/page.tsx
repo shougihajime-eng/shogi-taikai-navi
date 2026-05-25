@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { getClasses } from "@/lib/data";
 import { ClassCard } from "@/components/ClassCard";
+import Link from "next/link";
 import { FilterBar } from "@/components/FilterBar";
 import { Notice } from "@/components/Notice";
+import { SubmitCTA } from "@/components/SubmitCTA";
 import type { AgeGroup } from "@/lib/types";
 import { AGE_LABEL } from "@/lib/types";
 
@@ -50,13 +52,24 @@ export default async function KyoshitsuPage({
           ))}
         </div>
       ) : (
-        <p className="rounded-2xl border-2 border-dashed border-line bg-card p-8 text-center text-ink-soft">
-          えらんだ条件に合う教室が見つかりませんでした。
-          <br />
-          条件を変えてためしてみてね。
-        </p>
+        <div className="rounded-2xl border-2 border-dashed border-line bg-card p-8 text-center">
+          <p className="text-ink-soft">
+            えらんだ条件に合う教室が見つかりませんでした。
+            <br />
+            近くの教室を知っていたら、ぜひ登録してください。
+          </p>
+          <Link
+            href="/toroku"
+            className="mt-5 inline-block rounded-full bg-sky px-6 py-3 font-black text-white hover:bg-sky-dark"
+          >
+            ＋ この地域の教室を登録する
+          </Link>
+        </div>
       )}
 
+      <div className="mt-10">
+        <SubmitCTA />
+      </div>
       <div className="mt-8">
         <Notice />
       </div>

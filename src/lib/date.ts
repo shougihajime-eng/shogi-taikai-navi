@@ -13,12 +13,18 @@ function toNum(dateStr: string): number {
   return Number(dateStr.replaceAll("-", ""));
 }
 
-/** 開催ぐあい（これから／開催中／終了）を日付から計算する */
-export function computeStatus(eventDate: string, endDate?: string): EventStatus {
+/** 開催ぐあい（毎年開催／これから／開催中／終了）を計算する */
+export function computeStatus(
+  eventDate?: string,
+  endDate?: string,
+  isRecurring?: boolean,
+): EventStatus {
+  // 具体的な日付がない（毎年開催など）→ いつでも表示する「毎年開催」あつかい
+  if (!eventDate) return "recurring";
   const today = toNum(todayJST());
   const start = toNum(eventDate);
   const end = toNum(endDate ?? eventDate);
-  if (end < today) return "finished";
+  if (end < today) return isRecurring ? "recurring" : "finished";
   if (start <= today && today <= end) return "ongoing";
   return "upcoming";
 }
@@ -48,14 +54,13 @@ export function formatJPDate(dateStr?: string): string {
 }
 
 /** あと何日かを「あと3日」「今日」などの言葉に */
-export function countdownLabel(eventDate: string, endDate?: string): string {
-  const status = computeStatus(eventDate, endDate);
+export function countdownLabel(eventDate?: string, endDate?: string, isRecurring?: boolean): string {
+  const status = computeStatus(eventDate, endDate, isRecurring);
+  if (status === "recurring") return isRecurring ? "毎年開催" : "日程は未定";
   if (status === "finished") return "終了しました";
   if (status === "ongoing") return "開催中！";
-  const d = daysUntil(eventDate);
+  const d = daysUntil(eventDate!);
   if (d === 0) return "今日です！";
   if (d === 1) return "あした！";
-  if (d <= 7) return `あと${d}日`;
-  if (d <= 30) return `あと${d}日`;
   return `あと${d}日`;
 }

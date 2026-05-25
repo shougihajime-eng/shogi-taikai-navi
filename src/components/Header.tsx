@@ -31,6 +31,12 @@ export function Header() {
           >
             このサイトについて
           </Link>
+          <Link
+            href="/toroku"
+            className="rounded-full bg-brand px-3 py-2 text-sm font-bold text-white shadow-sm transition hover:bg-brand-dark sm:text-base"
+          >
+            ＋登録
+          </Link>
         </nav>
       </div>
     </header>

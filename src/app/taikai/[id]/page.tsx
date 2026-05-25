@@ -44,15 +44,42 @@ export default async function TournamentDetail({
     .filter((x) => x.id !== t.id)
     .slice(0, 3);
 
+  // 検索エンジン向けのイベント情報（構造化データ）
+  const jsonLd: Record<string, unknown> = {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    name: t.title,
+    eventStatus: "https://schema.org/EventScheduled",
+    location: {
+      "@type": "Place",
+      name: [t.venue, t.city, t.prefecture].filter(Boolean).join(" ") || t.prefecture,
+      address: { "@type": "PostalAddress", addressRegion: t.prefecture, addressCountry: "JP" },
+    },
+    organizer: { "@type": "Organization", name: t.organizer },
+  };
+  if (t.eventDate) jsonLd.startDate = t.eventDate;
+  if (t.endDate) jsonLd.endDate = t.endDate;
+  if (t.officialUrl) jsonLd.url = t.officialUrl;
+  if (t.description) jsonLd.description = t.description;
+
   return (
     <div className="mx-auto max-w-3xl px-4 py-8">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Link href="/taikai" className="text-sm font-bold text-brand-dark hover:underline">
         ← 大会いちらんにもどる
       </Link>
 
       <div className="mt-4 rounded-[var(--radius-card)] border-2 border-line bg-card p-6 shadow-sm sm:p-8">
         <div className="flex flex-wrap items-center gap-2">
-          <StatusBadge eventDate={t.eventDate} endDate={t.endDate} status={t.status} />
+          <StatusBadge
+            eventDate={t.eventDate}
+            endDate={t.endDate}
+            isRecurring={t.isRecurring}
+            status={t.status}
+          />
           <span className="rounded-full bg-brand-soft px-3 py-1 text-sm font-bold text-brand-dark">
             {ORGANIZER_LABEL[t.organizerType]}
           </span>
@@ -71,10 +98,21 @@ export default async function TournamentDetail({
         )}
 
         <dl className="mt-6">
-          <Row icon="📅" label="開催日">
-            <span className="font-bold">{formatJPDate(t.eventDate)}</span>
-            {t.endDate && <> 〜 {formatJPDate(t.endDate)}</>}
-          </Row>
+          {t.status === "recurring" ? (
+            <Row icon="📅" label="開催時期">
+              <span className="font-bold">
+                {t.recurrenceNote ?? (t.isRecurring ? "毎年開催" : "日程は未定")}
+              </span>
+              <p className="mt-1 text-sm text-ink-soft">
+                正確な日程・会場は、公式ページでご確認ください。
+              </p>
+            </Row>
+          ) : (
+            <Row icon="📅" label="開催日">
+              <span className="font-bold">{formatJPDate(t.eventDate)}</span>
+              {t.endDate && <> 〜 {formatJPDate(t.endDate)}</>}
+            </Row>
+          )}
           {t.entryDeadline && (
             <Row icon="✍️" label="申込しめ切り">{formatJPDate(t.entryDeadline)}</Row>
           )}
@@ -122,7 +160,9 @@ export default async function TournamentDetail({
                   className="flex items-center justify-between gap-3 rounded-2xl border-2 border-line bg-card px-4 py-3 transition hover:border-brand"
                 >
                   <span className="font-bold text-ink">{r.title}</span>
-                  <span className="shrink-0 text-sm text-ink-soft">{formatJPDate(r.eventDate)}</span>
+                  <span className="shrink-0 text-sm text-ink-soft">
+                    {r.status === "recurring" ? (r.recurrenceNote ?? "毎年開催") : formatJPDate(r.eventDate)}
+                  </span>
                 </Link>
               </li>
             ))}

@@ -39,7 +39,7 @@ function tournamentRows() {
     prefecture: t.prefecture,
     city: t.city ?? null,
     venue: t.venue ?? null,
-    event_date: t.eventDate,
+    event_date: t.eventDate ?? null,
     end_date: t.endDate ?? null,
     entry_deadline: t.entryDeadline ?? null,
     age_groups: t.ageGroups,
@@ -48,8 +48,12 @@ function tournamentRows() {
     capacity: t.capacity ?? null,
     official_url: t.officialUrl ?? null,
     description: t.description ?? null,
+    is_recurring: t.isRecurring ?? false,
+    recurrence_note: t.recurrenceNote ?? null,
+    nationwide: t.nationwide ?? false,
     source_name: t.sourceName,
     source_url: t.sourceUrl ?? null,
+    source_kind: "system",
   }));
 }
 
@@ -69,6 +73,7 @@ function classRows() {
     description: c.description ?? null,
     source_name: c.sourceName,
     source_url: c.sourceUrl ?? null,
+    source_kind: "system",
   }));
 }
 
@@ -90,6 +95,20 @@ export async function runDailyRefresh(admin: AdminClient): Promise<RefreshResult
     .from("classes")
     .upsert(cRows, { onConflict: "id" });
   if (cErr) throw new Error(`教室の保存に失敗: ${cErr.message}`);
+
+  // 1.5) 土台(system)から外した項目を消す（申請データ source_kind='submission' は触らない）
+  const keepTournamentIds = tRows.map((r) => r.id);
+  await admin
+    .from("tournaments")
+    .delete()
+    .eq("source_kind", "system")
+    .not("id", "in", `(${keepTournamentIds.join(",")})`);
+  const keepClassIds = cRows.map((r) => r.id);
+  await admin
+    .from("classes")
+    .delete()
+    .eq("source_kind", "system")
+    .not("id", "in", `(${keepClassIds.join(",")})`);
 
   // 2) 古い大会のお片付け（開催日が CLEANUP_AFTER_DAYS 日より前）
   const cutoff = new Date(todayJST() + "T00:00:00Z");

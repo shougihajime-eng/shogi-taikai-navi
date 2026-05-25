@@ -31,10 +31,16 @@ export default function AboutPage() {
         </section>
 
         <section className="rounded-[var(--radius-card)] border-2 border-line bg-card p-6">
-          <h2 className="font-display text-xl font-black text-ink">🔄 毎朝あたらしく</h2>
+          <h2 className="font-display text-xl font-black text-ink">🤝 みんなで作る全国マップ</h2>
           <p className="mt-3">
-            このサイトは<strong>毎朝4時ごろ</strong>に自動で見なおして、終わった大会をかたづけ、
-            あたらしい情報を取り入れています。いつ来ても新しい状態に近づくようにしています。
+            このサイトには、まず<strong>毎年ひらかれる全国の主要な大会</strong>がのっています。
+            そして、地域の大会や教室は<strong>みんなの登録</strong>でどんどん増えていきます。
+            あなたの知っている大会・教室を
+            <Link href="/toroku" className="font-bold text-brand-dark underline">登録ページ</Link>
+            から教えてください（確認のうえ公開します）。
+          </p>
+          <p className="mt-3">
+            また<strong>毎朝4時ごろ</strong>に自動で見なおして、終わって古くなった大会をかたづけています。
           </p>
         </section>
 

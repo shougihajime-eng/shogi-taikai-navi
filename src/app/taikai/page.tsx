@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { getTournaments } from "@/lib/data";
 import { TournamentCard } from "@/components/TournamentCard";
+import Link from "next/link";
 import { FilterBar } from "@/components/FilterBar";
 import { Notice } from "@/components/Notice";
+import { SubmitCTA } from "@/components/SubmitCTA";
 import type { AgeGroup } from "@/lib/types";
 import { AGE_LABEL } from "@/lib/types";
 
@@ -51,13 +53,24 @@ export default async function TaikaiPage({
           ))}
         </div>
       ) : (
-        <p className="rounded-2xl border-2 border-dashed border-line bg-card p-8 text-center text-ink-soft">
-          えらんだ条件に合う大会が見つかりませんでした。
-          <br />
-          条件を変えてためしてみてね。
-        </p>
+        <div className="rounded-2xl border-2 border-dashed border-line bg-card p-8 text-center">
+          <p className="text-ink-soft">
+            えらんだ条件に合う大会が見つかりませんでした。
+            <br />
+            条件を変えるか、知っている大会があれば登録してください。
+          </p>
+          <Link
+            href="/toroku"
+            className="mt-5 inline-block rounded-full bg-brand px-6 py-3 font-black text-white hover:bg-brand-dark"
+          >
+            ＋ この地域の大会を登録する
+          </Link>
+        </div>
       )}
 
+      <div className="mt-10">
+        <SubmitCTA />
+      </div>
       <div className="mt-8">
         <Notice />
       </div>
