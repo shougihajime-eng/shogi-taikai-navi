@@ -65,8 +65,9 @@ export function TournamentCard({ t }: { t: Tournament }) {
         <GirlsBadge girlsOnly={t.girlsOnly} hasGirlsDivision={t.hasGirlsDivision} size="sm" />
       </div>
 
-      <span className="mt-1 text-sm font-bold text-brand-dark opacity-0 transition group-hover:opacity-100">
-        くわしく見る →
+      <span className="mt-1 inline-flex items-center gap-1 text-sm font-bold text-brand-dark">
+        くわしく見る
+        <span className="transition-transform group-hover:translate-x-1" aria-hidden>→</span>
       </span>
     </Link>
   );

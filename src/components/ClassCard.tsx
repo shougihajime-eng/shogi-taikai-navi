@@ -53,8 +53,9 @@ export function ClassCard({ c }: { c: ShogiClass }) {
 
       <AgeBadges groups={c.ageGroups} size="sm" />
 
-      <span className="mt-1 text-sm font-bold text-sky-dark opacity-0 transition group-hover:opacity-100">
-        くわしく見る →
+      <span className="mt-1 inline-flex items-center gap-1 text-sm font-bold text-sky-dark">
+        くわしく見る
+        <span className="transition-transform group-hover:translate-x-1" aria-hidden>→</span>
       </span>
     </Link>
   );

@@ -121,6 +121,7 @@ export async function runDailyRefresh(admin: AdminClient): Promise<RefreshResult
   const { data: deleted, error: dErr } = await admin
     .from("tournaments")
     .delete()
+    .eq("is_recurring", false) // 毎年開催の大会は、開催日が過ぎても消さない
     .lt("event_date", cutoffStr)
     .select("id");
   if (dErr) throw new Error(`お片付けに失敗: ${dErr.message}`);

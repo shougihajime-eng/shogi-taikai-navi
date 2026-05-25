@@ -2,9 +2,10 @@ import type { EventStatus } from "./types";
 
 /** 日本時間（JST）での「今日」を YYYY-MM-DD で返す */
 export function todayJST(): string {
-  const now = new Date();
-  // 日本時間にそろえる
-  const jst = new Date(now.getTime() + (9 * 60 + now.getTimezoneOffset()) * 60_000);
+  // 端末・サーバーの時間帯に関係なく、必ず日本時間(UTC+9)の今日を返す。
+  // Date.now() は世界共通の時刻(協定世界時)なので、これに9時間足して
+  // UTC表記の日付部分を取り出せば、どの時間帯で動かしても日本の日付になる。
+  const jst = new Date(Date.now() + 9 * 60 * 60 * 1000);
   return jst.toISOString().slice(0, 10);
 }
 

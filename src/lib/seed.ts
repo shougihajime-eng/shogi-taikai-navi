@@ -321,6 +321,8 @@ export const SEED_TOURNAMENTS: SeedTournament[] = [
     prefecture: "石川県",
     city: "金沢市ほか",
     eventDate: "2026-05-31",
+    isRecurring: true,
+    recurrenceNote: "毎年5月ごろ（金沢市ほか）",
     ageGroups: ["elementary", "junior"],
     gradeDetail: "小学生・中学生（3人1チームの団体戦）",
     officialUrl: "https://ishikawashiburengoukai.com/",
