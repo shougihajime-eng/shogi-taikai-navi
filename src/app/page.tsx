@@ -6,6 +6,9 @@ import { KomaIcon } from "@/components/KomaIcon";
 import { Notice } from "@/components/Notice";
 import { SubmitCTA } from "@/components/SubmitCTA";
 
+// トップはいつ見ても最新のデータを表示する（データ追加・承認がすぐ反映される）
+export const dynamic = "force-dynamic";
+
 // よくさがされる地域（トップのショートカット用）
 const POPULAR_PREFS = [
   "北海道",
