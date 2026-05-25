@@ -224,6 +224,43 @@ export const SEED_TOURNAMENTS: SeedTournament[] = [
     sourceName: "日本女子プロ将棋協会（LPSA）",
     sourceUrl: "https://joshi-shogi.com/",
   },
+  {
+    id: "nat-muatsu-joryu-ama",
+    title: "ムアツ杯 女流アマ名人戦",
+    organizer: "日本将棋連盟（報知新聞社 後援）",
+    organizerType: "jsa",
+    prefecture: "全国",
+    nationwide: true,
+    isRecurring: true,
+    recurrenceNote: "毎年（棋力別：名人戦・A・B・Cクラス）",
+    girlsOnly: true,
+    ageGroups: ["elementary", "junior", "high"],
+    gradeDetail: "女子・女性のアマチュア（小学生〜大人。棋力でクラス分け）",
+    officialUrl: "https://www.shogi.or.jp/tournament/ama_lady/",
+    description:
+      "1968年から続く、女性アマチュアの全国大会。小学生・中学生・高校生から大人まで、全国からたくさんの女の子・女性が集まります。強さに合わせて名人戦・A・B・Cのクラスに分かれるので、はじめてでも安心です。今年の日程は公式ページで確認してね。",
+    sourceName: "日本将棋連盟",
+    sourceUrl: "https://www.shogi.or.jp/tournament/ama_lady/",
+  },
+  {
+    id: "kansai-joryu-ama",
+    title: "関西アマチュア女流将棋名人戦",
+    organizer: "日本将棋連盟",
+    organizerType: "jsa",
+    prefecture: "大阪府",
+    city: "大阪市",
+    venue: "関西将棋会館ほか",
+    isRecurring: true,
+    recurrenceNote: "毎年（関西の女子・女性アマチュア大会）",
+    girlsOnly: true,
+    ageGroups: ["elementary", "junior", "high"],
+    gradeDetail: "女子・女性のアマチュア（小学生〜大人）",
+    officialUrl: "https://www.shogi.or.jp/tournament/ama_lady_kansai/",
+    description:
+      "関西で開かれる、女子・女性アマチュアの将棋名人戦。小学生から大人まで参加でき、関西の女の子の交流の場にもなっています。今年の日程は公式ページで確認してね。",
+    sourceName: "日本将棋連盟",
+    sourceUrl: "https://www.shogi.or.jp/tournament/ama_lady_kansai/",
+  },
 ];
 
 export const SEED_CLASSES: ShogiClass[] = [
