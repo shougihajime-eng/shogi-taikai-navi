@@ -26,6 +26,12 @@ export function Header() {
             🎓 教室
           </Link>
           <Link
+            href="/joshi"
+            className="rounded-full px-3 py-2 text-sm font-bold text-girls transition hover:bg-girls-soft sm:text-base"
+          >
+            👧 女子
+          </Link>
+          <Link
             href="/about"
             className="hidden rounded-full px-3 py-2 text-sm font-bold text-ink transition hover:bg-line sm:inline-block sm:text-base"
           >

@@ -108,8 +108,8 @@ export default async function HomePage() {
             <Link href="/taikai?age=high" className="rounded-full bg-hs-soft px-4 py-1.5 text-sm font-bold text-hs hover:brightness-95">
               高校生
             </Link>
-            <Link href="/taikai?girls=1" className="rounded-full bg-girls-soft px-4 py-1.5 text-sm font-bold text-girls hover:brightness-95">
-              👧 女子の大会
+            <Link href="/joshi" className="rounded-full bg-girls-soft px-4 py-1.5 text-sm font-bold text-girls hover:brightness-95">
+              👧 女子の大会・教室
             </Link>
           </div>
         </div>
