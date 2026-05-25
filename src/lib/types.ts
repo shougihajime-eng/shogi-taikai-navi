@@ -78,6 +78,8 @@ export interface ShogiClass {
   contact?: string;
   officialUrl?: string;
   description?: string;
+  /** 女子が安心して通える・女子向けの教室か */
+  forGirls?: boolean;
   sourceName: string;
   sourceUrl?: string;
 }

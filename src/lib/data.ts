@@ -23,6 +23,8 @@ export interface TournamentFilter {
 export interface ClassFilter {
   prefecture?: string;
   ageGroup?: AgeGroup;
+  /** 女子向けの教室だけにしぼる */
+  girlsOnly?: boolean;
 }
 
 // ---- DB の行（snake_case）→ アプリの型（camelCase）に変換 ----
@@ -74,6 +76,7 @@ function mapClass(row: any): ShogiClass {
     contact: row.contact ?? undefined,
     officialUrl: row.official_url ?? undefined,
     description: row.description ?? undefined,
+    forGirls: row.for_girls ?? false,
     sourceName: row.source_name ?? "",
     sourceUrl: row.source_url ?? undefined,
   };
@@ -119,6 +122,7 @@ function applyClassFilter(list: ShogiClass[], f: ClassFilter): ShogiClass[] {
   let out = list;
   if (f.prefecture) out = out.filter((c) => c.prefecture === f.prefecture);
   if (f.ageGroup) out = out.filter((c) => c.ageGroups.includes(f.ageGroup!));
+  if (f.girlsOnly) out = out.filter((c) => c.forGirls);
   return out;
 }
 

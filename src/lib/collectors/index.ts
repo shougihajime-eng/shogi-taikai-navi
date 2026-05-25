@@ -73,6 +73,7 @@ function classRows() {
     contact: c.contact ?? null,
     official_url: c.officialUrl ?? null,
     description: c.description ?? null,
+    for_girls: c.forGirls ?? false,
     source_name: c.sourceName,
     source_url: c.sourceUrl ?? null,
     source_kind: "system",

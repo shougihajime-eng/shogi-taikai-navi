@@ -11,9 +11,11 @@ const AGE_OPTIONS: AgeGroup[] = ["elementary", "junior", "high"];
 export function FilterBar({
   accent = "brand",
   showGirls = false,
+  girlsLabel = "女子の部・女子大会だけ",
 }: {
   accent?: "brand" | "sky";
   showGirls?: boolean;
+  girlsLabel?: string;
 }) {
   const router = useRouter();
   const pathname = usePathname();
@@ -80,7 +82,7 @@ export function FilterBar({
             )}
           >
             <span aria-hidden>👧</span>
-            女子の部・女子大会だけ
+            {girlsLabel}
           </button>
         </div>
       )}

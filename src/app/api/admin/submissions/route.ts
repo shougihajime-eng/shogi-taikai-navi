@@ -81,6 +81,7 @@ function classRowFromPayload(p: any) {
     contact: p.contact || null,
     official_url: p.officialUrl || null,
     description: p.description || null,
+    for_girls: p.forGirls === true,
     source_name: "みんなの申請",
     source_kind: "submission",
   };

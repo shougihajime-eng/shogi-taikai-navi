@@ -255,4 +255,18 @@ export const SEED_CLASSES: ShogiClass[] = [
     sourceName: "日本将棋連盟",
     sourceUrl: "https://www.shogi.or.jp/",
   },
+  {
+    id: "nat-class-lpsa",
+    name: "LPSA 女子・こども将棋教室",
+    prefecture: "東京都",
+    schedule: "公式ページで確認",
+    target: "女子・こども（幼児〜高校生）",
+    ageGroups: ["elementary", "junior", "high"],
+    forGirls: true,
+    officialUrl: "https://joshi-shogi.com/",
+    description:
+      "女子のプロ棋士の団体（LPSA）が開く、女子・こども向けの将棋教室。女の子の先生が多く、はじめての女の子も安心して通えます。教室の場所・曜日・料金は公式ページで確認してね。",
+    sourceName: "日本女子プロ将棋協会（LPSA）",
+    sourceUrl: "https://joshi-shogi.com/",
+  },
 ];

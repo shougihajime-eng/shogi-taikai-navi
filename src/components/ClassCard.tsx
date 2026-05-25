@@ -8,10 +8,15 @@ export function ClassCard({ c }: { c: ShogiClass }) {
       href={`/kyoshitsu/${c.id}`}
       className="group flex flex-col gap-3 rounded-[var(--radius-card)] border-2 border-line bg-card p-5 shadow-sm transition hover:-translate-y-1 hover:border-sky hover:shadow-lg"
     >
-      <div className="flex items-center justify-between gap-2">
+      <div className="flex flex-wrap items-center gap-2">
         <span className="rounded-full bg-sky-soft px-2.5 py-0.5 text-xs font-bold text-sky-dark">
           将棋教室
         </span>
+        {c.forGirls && (
+          <span className="inline-flex items-center gap-1 rounded-full bg-girls-soft px-2.5 py-0.5 text-xs font-bold text-girls">
+            <span aria-hidden>👧</span>女子も安心
+          </span>
+        )}
       </div>
 
       <h3 className="text-lg font-bold leading-snug text-ink group-hover:text-sky-dark">

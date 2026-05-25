@@ -283,6 +283,22 @@ export function SubmitForm() {
             <Field label="連絡先">
               <input className={inputCls} value={f.contact ?? ""} onChange={set("contact")} placeholder="例：電話番号やメール" />
             </Field>
+            {/* 女子について */}
+            <div>
+              <span className="mb-1.5 block text-sm font-bold text-ink">女子について</span>
+              <button
+                type="button"
+                onClick={() => setF((p) => ({ ...p, forGirls: p.forGirls === "1" ? "" : "1" }))}
+                className={clsx(
+                  "inline-flex items-center gap-1.5 rounded-full border-2 px-4 py-2 text-sm font-bold transition",
+                  f.forGirls === "1"
+                    ? "border-girls bg-girls text-white"
+                    : "border-line bg-white text-ink hover:border-ink-soft",
+                )}
+              >
+                <span aria-hidden>👧</span>女子も安心して通える教室
+              </button>
+            </div>
           </>
         )}
 

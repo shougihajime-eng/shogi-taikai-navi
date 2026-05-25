@@ -88,6 +88,7 @@ export async function POST(request: Request) {
       contact: str(body.contact, 200),
       officialUrl: str(body.officialUrl, 300),
       description: str(body.description, 1000),
+      forGirls: body.forGirls === "1",
     });
   }
 

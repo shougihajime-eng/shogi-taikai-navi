@@ -18,14 +18,17 @@ const VALID_AGES: AgeGroup[] = ["elementary", "junior", "high"];
 export default async function KyoshitsuPage({
   searchParams,
 }: {
-  searchParams: Promise<{ pref?: string; age?: string }>;
+  searchParams: Promise<{ pref?: string; age?: string; girls?: string }>;
 }) {
   const sp = await searchParams;
   const pref = sp.pref || undefined;
   const age = VALID_AGES.includes(sp.age as AgeGroup) ? (sp.age as AgeGroup) : undefined;
+  const girlsOnly = sp.girls === "1";
 
-  const classes = await getClasses({ prefecture: pref, ageGroup: age });
-  const filterText = [pref, age ? AGE_LABEL[age] : null].filter(Boolean).join("・");
+  const classes = await getClasses({ prefecture: pref, ageGroup: age, girlsOnly });
+  const filterText = [pref, age ? AGE_LABEL[age] : null, girlsOnly ? "女子向け" : null]
+    .filter(Boolean)
+    .join("・");
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-8">
@@ -35,7 +38,7 @@ export default async function KyoshitsuPage({
       </p>
 
       <div className="mt-6">
-        <FilterBar accent="sky" />
+        <FilterBar accent="sky" showGirls girlsLabel="女子も安心の教室だけ" />
       </div>
 
       <div className="mt-6 mb-4">
