@@ -5,22 +5,10 @@ import { ClassCard } from "@/components/ClassCard";
 import { Mascot } from "@/components/Mascot";
 import { Notice } from "@/components/Notice";
 import { SubmitCTA } from "@/components/SubmitCTA";
+import { RegionPicker } from "@/components/RegionPicker";
 
 // トップはいつ見ても最新のデータを表示する（データ追加・承認がすぐ反映される）
 export const dynamic = "force-dynamic";
-
-// よくさがされる地域（トップのショートカット用）
-const POPULAR_PREFS = [
-  "北海道",
-  "東京都",
-  "神奈川県",
-  "愛知県",
-  "大阪府",
-  "兵庫県",
-  "広島県",
-  "福岡県",
-  "沖縄県",
-];
 
 export default async function HomePage() {
   const [tournaments, classes] = await Promise.all([
@@ -115,28 +103,15 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ===== 地域からさがす ===== */}
+      {/* ===== 地域からさがす（地方→都道府県） ===== */}
       <section className="mx-auto max-w-5xl px-4 py-8">
-        <h2 className="mb-4 font-display text-2xl font-black text-ink sm:text-3xl">
+        <h2 className="mb-2 font-display text-2xl font-black text-ink sm:text-3xl">
           📍 地域からさがす
         </h2>
-        <div className="flex flex-wrap gap-2.5">
-          {POPULAR_PREFS.map((p) => (
-            <Link
-              key={p}
-              href={`/taikai?pref=${encodeURIComponent(p)}`}
-              className="rounded-full border-2 border-line bg-card px-4 py-2 text-sm font-bold text-ink transition hover:-translate-y-0.5 hover:border-brand hover:text-brand-dark"
-            >
-              {p}
-            </Link>
-          ))}
-          <Link
-            href="/taikai"
-            className="rounded-full bg-brand-soft px-4 py-2 text-sm font-bold text-brand-dark transition hover:-translate-y-0.5 hover:brightness-95"
-          >
-            ほかの地域も見る →
-          </Link>
-        </div>
+        <p className="mb-4 text-sm text-ink-soft">
+          地方をえらんで、都道府県をタップ。北海道から沖縄まで、近くの大会がさがせるよ。
+        </p>
+        <RegionPicker />
       </section>
 
       {/* ===== もうすぐの大会（日付が決まっているもの） ===== */}
