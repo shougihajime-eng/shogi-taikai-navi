@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { getTournaments, getClasses } from "@/lib/data";
+import { PREF_SLUG } from "@/lib/prefectures";
 
 const BASE = "https://shogi-taikai-navi.vercel.app";
 
@@ -31,5 +32,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.6,
   }));
 
-  return [...staticPages, ...tournamentPages, ...classPages];
+  // 都道府県ごとのページ（検索で見つかりやすくする）
+  const chiikiPages: MetadataRoute.Sitemap = Object.values(PREF_SLUG).map((slug) => ({
+    url: `${BASE}/chiiki/${slug}`,
+    changeFrequency: "weekly",
+    priority: 0.7,
+  }));
+
+  return [...staticPages, ...tournamentPages, ...classPages, ...chiikiPages];
 }

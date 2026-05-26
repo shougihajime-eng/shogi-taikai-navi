@@ -1,11 +1,13 @@
 import Link from "next/link";
 import { getTournaments, getClasses } from "@/lib/data";
+import { todayJST, formatJPDate } from "@/lib/date";
 import { TournamentCard } from "@/components/TournamentCard";
 import { ClassCard } from "@/components/ClassCard";
 import { Mascot } from "@/components/Mascot";
 import { Notice } from "@/components/Notice";
 import { SubmitCTA } from "@/components/SubmitCTA";
 import { RegionPicker } from "@/components/RegionPicker";
+import { JapanMap } from "@/components/JapanMap";
 
 // トップはいつ見ても最新のデータを表示する（データ追加・承認がすぐ反映される）
 export const dynamic = "force-dynamic";
@@ -66,6 +68,11 @@ export default async function HomePage() {
             </div>
           </div>
 
+          {/* 最終チェック日（毎朝見なおしている安心感） */}
+          <p className="mt-3 text-center text-xs text-ink-soft">
+            🕒 情報は毎朝見なおしています（最終チェック：{formatJPDate(todayJST())}）
+          </p>
+
           {/* 大きな2つのボタン */}
           <div className="mx-auto mt-7 grid max-w-2xl gap-4 sm:grid-cols-2">
             <Link
@@ -115,14 +122,22 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ===== 地域からさがす（地方→都道府県） ===== */}
-      <section className="mx-auto max-w-5xl px-4 py-8">
+      {/* ===== 地域からさがす（日本地図＋地方ナビ） ===== */}
+      <section id="chiiki" className="mx-auto max-w-5xl px-4 py-8 scroll-mt-20">
         <h2 className="mb-2 font-display text-2xl font-black text-ink sm:text-3xl">
-          📍 地域からさがす
+          🗾 地図からさがす
         </h2>
-        <p className="mb-4 text-sm text-ink-soft">
-          地方をえらんで、都道府県をタップ。北海道から沖縄まで、近くの大会がさがせるよ。
+        <p className="mb-5 text-sm text-ink-soft">
+          住んでいる県をタップしてね。北海道から沖縄まで、近くの大会・教室がさがせるよ。
         </p>
+
+        {/* クリックできる日本地図 */}
+        <div className="rounded-[var(--radius-card)] border-2 border-line bg-card p-4 shadow-sm sm:p-6">
+          <JapanMap />
+        </div>
+
+        {/* ボタンでもさがせる（地方→都道府県） */}
+        <p className="mb-3 mt-6 text-sm font-bold text-ink-soft">ボタンでもさがせるよ：</p>
         <RegionPicker />
       </section>
 

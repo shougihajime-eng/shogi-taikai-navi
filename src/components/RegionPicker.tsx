@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { REGIONS } from "@/lib/prefectures";
+import { REGIONS, PREF_SLUG } from "@/lib/prefectures";
 import { clsx } from "@/lib/clsx";
 
 // 地方ごとの絵文字（楽しい雰囲気に）
@@ -55,7 +55,7 @@ export function RegionPicker() {
           {region.prefectures.map((p) => (
             <Link
               key={p}
-              href={`/taikai?pref=${encodeURIComponent(p)}`}
+              href={`/chiiki/${PREF_SLUG[p]}`}
               className="rounded-full border-2 border-line bg-white px-4 py-2 text-sm font-bold text-ink transition hover:-translate-y-0.5 hover:border-brand hover:text-brand-dark"
             >
               {p}

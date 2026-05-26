@@ -57,6 +57,22 @@ export default function RootLayout({
   return (
     <html lang="ja" className={`${zenMaru.variable} ${notoSansJP.variable} h-full`}>
       <body className="flex min-h-full flex-col">
+        {/* 検索エンジン向けのサイト情報（構造化データ） */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              name: "将棋大会ナビ",
+              alternateName: "Shogi Taikai Navi",
+              url: "https://shogi-taikai-navi.vercel.app",
+              description:
+                "小学生・中学生・高校生の将棋大会や将棋教室を、全国からまとめてかんたんにさがせる案内サイト。",
+              inLanguage: "ja",
+            }),
+          }}
+        />
         <Header />
         <main className="has-bottom-nav flex-1">{children}</main>
         <Footer />
