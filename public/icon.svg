@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ff9a3c"/>
+      <stop offset="1" stop-color="#ef7a1a"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.12" r="0.95">
+      <stop offset="0" stop-color="#fff6e0" stop-opacity="0.6"/>
+      <stop offset="0.6" stop-color="#fff6e0" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="koma" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fff4dc"/>
+      <stop offset="0.82" stop-color="#f4dca6"/>
+      <stop offset="1" stop-color="#fbeccb"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 背景（元気なオレンジの角丸正方形） -->
+  <rect x="0" y="0" width="512" height="512" rx="112" fill="url(#bg)"/>
+  <rect x="0" y="0" width="512" height="512" rx="112" fill="url(#glow)"/>
+
+  <!-- きらきら（楽しい雰囲気） -->
+  <g fill="#fff7e2">
+    <path opacity="0.85" d="M398 92 l11 38 38 11 -38 11 -11 38 -11-38 -38-11 38-11 z"/>
+    <circle opacity="0.7" cx="96" cy="118" r="11"/>
+    <circle opacity="0.6" cx="430" cy="404" r="9"/>
+  </g>
+
+  <!-- 五角形のクリーム色の駒（マスコット） -->
+  <path d="M256 92 L356 138 L398 432 L114 432 L156 138 Z"
+        fill="url(#koma)" stroke="#d96a0d" stroke-width="7" stroke-linejoin="round"/>
+
+  <!-- 「歩」の文字（濃い茶色） -->
+  <text x="256" y="322" text-anchor="middle"
+        font-family="'Hiragino Maru Gothic ProN','Zen Maru Gothic','Yu Gothic',sans-serif"
+        font-weight="900" font-size="208" fill="#3a2a12">歩</text>
+</svg>

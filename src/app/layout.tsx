@@ -32,6 +32,16 @@ export const metadata: Metadata = {
   description:
     "小学生・中学生・高校生の将棋大会や将棋教室を、全国からまとめて、かんたんにさがせる案内サイト。学年や地域でぴったりの大会・教室が見つかります。",
   keywords: ["将棋", "将棋大会", "将棋教室", "小学生", "中学生", "高校生", "こども将棋", "全国"],
+  icons: {
+    icon: "/icon.svg",
+    apple: "/icon.svg",
+  },
+  // iPhone/iPad で「ホーム画面に追加」したとき、本物のアプリのように全画面で開く
+  appleWebApp: {
+    capable: true,
+    title: "将棋あんない",
+    statusBarStyle: "default",
+  },
   openGraph: {
     title: "将棋大会ナビ｜小中高生の将棋大会・将棋教室をさがそう",
     description: "小中高生の将棋大会・将棋教室を全国からまとめた案内サイト",
